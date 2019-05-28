@@ -12,12 +12,29 @@ namespace Module_Test_2
         public string Size;
         public string Extention;
 
-        protected virtual void Parse(string text)
+         protected virtual void Parse(string text)
         {
-            text = arrFiles[i];
-            found = arrString[i].IndexOf(";");
-            arrFiles[i] = new (arrString[i].Substring(found + 1));
-            arrFiles[i] = new (arrString[i]);
+            SetSize(text);
+            SetName(text);
+            SetExtention(text);
+        }
+        private void SetSize(string text)
+        {
+            int startIndex = text.IndexOf("(");
+            int endIndex = text.IndexOf(")");
+            Size = text.Substring(startIndex + 1, endIndex - 1 - startIndex);
+        }
+        private void SetName(string text)
+        {
+            int startIndex = text.IndexOf(":");
+            int endIndex = text.IndexOf("(");
+            Name = text.Substring(startIndex + 1, endIndex - 1 - startIndex);
+        }
+        private void SetExtention(string text)
+        {
+            int startIndex = text.IndexOf(".");
+            int endIndex = text.IndexOf("(");
+            Extention = text.Substring(startIndex + 1, endIndex - 1 - startIndex);
         }
 
     }
