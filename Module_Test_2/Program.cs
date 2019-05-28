@@ -14,9 +14,11 @@ namespace Module_Test_2
 
         protected virtual void Parse(string text)
         {
-            //
+            text = arrFiles[i];
+            found = arrString[i].IndexOf(";");
+            arrFiles[i] = new (arrString[i].Substring(found + 1));
+            arrFiles[i] = new (arrString[i]);
         }
-
 
     }
     class TextFiles : File
@@ -37,7 +39,7 @@ namespace Module_Test_2
     }
     class Movies : File
     {
-        
+
         public string Resolution;
         public string Length;
         public Movies(string text)
@@ -53,7 +55,7 @@ namespace Module_Test_2
         }
     }
     class Images : File
-    {     
+    {
         public string Resolution;
         public Images(string text)
         {
@@ -84,6 +86,7 @@ namespace Module_Test_2
                 {
                     found = arrString[i].IndexOf(":");
                     arrFiles[i] = new TextFiles(arrString[i].Substring(found + 1));
+
                 }
                 else if (arrString[i].StartsWith("Image:"))
                 {
@@ -97,7 +100,8 @@ namespace Module_Test_2
                 }
 
             }
-           
+
+
             return arrFiles;
         }
 
@@ -116,9 +120,7 @@ namespace Module_Test_2
                             Text:data1.txt(7B); Yet another string
                              Movie:logan.2017.mkv(19GB); 1920х1080; 2h12m";
             StringParse stringInput = new StringParse();
-
-
-
+            
         }
     }
 }
