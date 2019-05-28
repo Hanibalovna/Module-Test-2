@@ -94,7 +94,7 @@ namespace Module_Test_2
 
         public File[] ArrInput(string input)
         {
-            string[] arrString = input.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            string[] arrString = input.Split('\n');
             File[] arrFiles = new File[arrString.Length];
             int found = 0;
             for (int i = 0; i < arrString.Length; i++)
