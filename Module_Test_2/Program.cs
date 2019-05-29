@@ -12,7 +12,7 @@ namespace Module_Test_2
         public string Size;
         public string Extention;
 
-         protected virtual void Parse(string text)
+        protected virtual void Parse(string text)
         {
             SetSize(text);
             SetName(text);
@@ -46,19 +46,18 @@ namespace Module_Test_2
         {
             Parse(text);
         }
-
         protected override void Parse(string text)
         {
             base.Parse(text);
-
-            // 
+            int startIndex = text.IndexOf(";");
+            Content = text.Substring(startIndex + 1);
         }
     }
     class Movies : File
     {
-
         public string Resolution;
         public string Length;
+
         public Movies(string text)
         {
             Parse(text);
@@ -67,30 +66,32 @@ namespace Module_Test_2
         protected override void Parse(string text)
         {
             base.Parse(text);
-
-            // 
+            int startIndex = text.IndexOf(";");
+            int endIndex = text.IndexOf(";");
+            Resolution = text.Substring(startIndex + 1, endIndex - 1 - startIndex);
+            int startIndex1 = text.IndexOf(";");
+            Length = text.Substring(startIndex1 + 1);
         }
     }
     class Images : File
     {
         public string Resolution;
+
         public Images(string text)
         {
             Parse(text);
         }
-
         protected override void Parse(string text)
         {
             base.Parse(text);
-
-            // 
+            int startIndex = text.IndexOf(";");
+            Resolution = text.Substring(startIndex + 1);
         }
 
     }
     class StringParse
     {
         public string[] ArrString { get; set; }
-
 
         public File[] ArrInput(string input)
         {
@@ -103,7 +104,6 @@ namespace Module_Test_2
                 {
                     found = arrString[i].IndexOf(":");
                     arrFiles[i] = new TextFiles(arrString[i].Substring(found + 1));
-
                 }
                 else if (arrString[i].StartsWith("Image:"))
                 {
@@ -115,17 +115,9 @@ namespace Module_Test_2
                     found = arrString[i].IndexOf(":");
                     arrFiles[i] = new Movies(arrString[i].Substring(found + 1));
                 }
-
             }
-
-
             return arrFiles;
         }
-
-
-
-
-
     }
     class Program
     {
@@ -137,7 +129,11 @@ namespace Module_Test_2
                             Text:data1.txt(7B); Yet another string
                              Movie:logan.2017.mkv(19GB); 1920х1080; 2h12m";
             StringParse stringInput = new StringParse();
-            
+            stringInput.ArrInput(text);
+            File file = new File();
+            TextFiles textFile = new TextFiles(text);
+           
+
         }
     }
 }
